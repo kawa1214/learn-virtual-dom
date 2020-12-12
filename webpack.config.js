@@ -21,8 +21,11 @@ module.exports = {
     hot: true,
     watchContentBase: true
   },
+  output: {
+    path: path.resolve(__dirname, 'docs'),
+  },
   plugins: [
-    new HtmlWebpackPlugin()
+    new HtmlWebpackPlugin(),
   ],
   resolve: {
     extensions: [

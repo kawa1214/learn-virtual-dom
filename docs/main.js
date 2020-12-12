@@ -11,6 +11,6 @@
 /*!**********************!*\
   !*** ./src/index.ts ***!
   \**********************/
-eval("\nfunction hello(name) {\n    return \"Hello, \" + name + \"!\";\n}\nconsole.log(hello(\"World\"));\n\n\n//# sourceURL=webpack://virtual-dom-simple-framework/./src/index.ts?");
+eval("\nfunction hello(name) {\n    return \"Hello, \" + name + \"!!\";\n}\nconsole.log(hello(\"World\"));\n\n\n//# sourceURL=webpack://virtual-dom-simple-framework/./src/index.ts?");
 /******/ })()
 ;
