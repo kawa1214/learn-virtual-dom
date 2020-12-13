@@ -1,11 +1,12 @@
 {
   "name": "virtual-dom-simple-framework",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/index.js",
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "serve": "webpack serve"
+    "serve": "webpack serve",
+    "watch": "yarn run build --watch"
   },
   "devDependencies": {
     "html-webpack-plugin": "^4.5.0",

@@ -17,12 +17,8 @@ module.exports = {
   },
   devServer: {
     contentBase: `${outputPath}/`,
-    open: true,
     hot: true,
     watchContentBase: true
-  },
-  output: {
-    path: path.resolve(__dirname, 'docs'),
   },
   plugins: [
     new HtmlWebpackPlugin(),
