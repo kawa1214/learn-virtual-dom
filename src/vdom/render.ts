@@ -21,13 +21,13 @@ const renderElem = (vNode: elementAttribute) => {
 };
 
 export const render = (vNode: elementAttribute | string) => {
-  console.log("vNode", vNode);
   if (typeof vNode === 'string') {
     return document.createTextNode(vNode);
-  }else {
-    return renderElem(vNode);
-    //console.log("else")
   }
 
-  //return renderElem(vNode);
+  return renderElem(vNode);
+};
+
+export const firstRender = (vNode: elementAttribute) => {
+  return renderElem(vNode);
 };

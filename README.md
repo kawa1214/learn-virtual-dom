@@ -1,3 +1,20 @@
+**DOM要素のオブジェクト**
+
+'''javascript
+const myButton = {
+  tagName: 'button',
+  attrs: {
+      id: 'btn',
+      class: 'save-btn'
+  },
+  children: ['save'],
+};
+'''
+
+'''html
+<button id="btn" class="save-btn">save</button>
+'''
+
 **dom methods**
 
 - remove

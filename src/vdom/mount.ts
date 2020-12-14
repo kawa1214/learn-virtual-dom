@@ -1,6 +1,6 @@
 interface mountInterface {
-  $node: string | Node,
-  $target: HTMLElement | null,
+  $node: Element,//$node: string | Node,
+  $target: Element | null,
 }
 export const mount = (props: mountInterface) => {
   if (props.$target !== null) {
