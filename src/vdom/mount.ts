@@ -1,5 +1,5 @@
 interface mountInterface {
-  $node: Element,//$node: string | Node,
+  $node: Element,
   $target: Element | null,
 }
 export const mount = (props: mountInterface) => {

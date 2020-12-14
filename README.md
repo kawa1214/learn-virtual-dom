@@ -1,4 +1,4 @@
-**DOM要素のオブジェクト**
+**仮想DOM要素のオブジェクト**
 
 '''javascript
 const myButton = {
