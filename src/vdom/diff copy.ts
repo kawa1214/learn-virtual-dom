@@ -1,10 +1,8 @@
 import { render } from './render';
 import { elementAttribute, elementAttrs, elementChildren } from '../types/index'
-import { createElement } from './createElement';
 
 const replaceChildren = (oldVTree: elementAttribute, newVTree: elementAttribute, $rootEl: Element,) => {
   $rootEl = replaceAttrs(oldVTree.attrs, newVTree.attrs, $rootEl);
-  /*
   oldVTree.children.forEach((oldVChild, i) => {
     if (oldVTree.children === undefined || newVTree.children === undefined) {
       return $rootEl
@@ -22,26 +20,6 @@ const replaceChildren = (oldVTree: elementAttribute, newVTree: elementAttribute,
     }
     replaceChildren(oldVChild, newVChild, $rootEl.children[i])
   })
-  */
- newVTree.children.forEach((newVChild, i) => {
-  if (oldVTree.children === undefined || newVTree.children === undefined) {
-    return $rootEl
-  }
-  const oldVChild = oldVTree.children[i]
-  if (typeof newVChild === 'string' || typeof oldVChild === 'string') {
-    if (newVChild !== oldVChild) {
-      const $newNode = render(newVTree);
-      $rootEl.replaceWith($newNode);
-    }
-    return $rootEl;
-  }
-  if ($rootEl.children[i] === undefined) {
-    $rootEl.appendChild(render(newVChild))
-    return $rootEl
-  }
-  replaceChildren(newVChild, oldVChild, $rootEl.children[i])
-})
- 
   return $rootEl
 }
 
@@ -52,6 +30,7 @@ const replaceAttrs = (oldAttrs: elementAttrs, newAttrs: elementAttrs, $rootEl: E
     }else {
       $rootEl.setAttribute(k, v);
     }
+    //$rootEl.setAttribute(k, v);
   }
 
   for (const k in oldAttrs) {
@@ -64,6 +43,8 @@ const replaceAttrs = (oldAttrs: elementAttrs, newAttrs: elementAttrs, $rootEl: E
 
 export const diff = (oldVTree: elementAttribute , newVTree: elementAttribute, $rootEl: Element) => {
 
+  //$rootEl = replaceAttrs(oldVTree, newVTree, $rootEl)
   $rootEl = replaceChildren(oldVTree, newVTree, $rootEl)
+
   return $rootEl
 };

@@ -2,105 +2,92 @@ import { createElement } from './vdom/createElement';
 import { render, firstRender } from './vdom/render';
 import { mount } from './vdom/mount';
 import { diff } from './vdom/diff'
+import { CreateApp } from './framework/index';
+import { elementAttribute, setStateInterface } from './types/index'
 
-const createVApp = (count: number) => createElement({
+const view = (state: any) => createElement({
   tagName: "div",
-  attrs: { id: 'app', test: `${count}`},
+  attrs: { id: 'app'},
   children: [
     createElement({
-      tagName: 'p',
+      tagName: "input",
       attrs: {
-        value: `${count}`,
-        value2: `${count}2`,
-        
+        type: "text",
+        value: `${state.todoInput}`,
+        oninput: (event: Event) => {
+          const target = event.target as HTMLInputElement
+          setState({actionType: 'todoInputTextChange', state: target.value})
+        }
       },
       children: [
-        //`count: ${String(count)}`,
-      ]
+        createElement({
+          tagName: "p",
+          attrs: {},
+          children: [
+            `${state.todos[0]}`
+          ]
+        }),
+      ],
     }),
     createElement({
-      tagName: 'table',
-      attrs: { border : "1" },
+      tagName: "button",
+      attrs: {
+        type: "button",
+        onclick: () => {
+          setState({actionType: 'addTodo', state: state.todoInput})
+        }
+      },
       children: [
-        createElement({
-          tagName: 'tr',
-          attrs: {},
-          children: [
-            createElement({
-              tagName: 'th',
-              attrs: {},
-              children: [
-                "count"
-              ]
-            }),
-          ]
-        }),
-        createElement({
-          tagName: 'tr',
-          attrs: {},
-          children: [
-            createElement({
-              tagName: 'td',
-              attrs: {},
-              children: [
-                String(count),
-                createElement({
-                  tagName: 'div',
-                  attrs: {},
-                  children: [
-                    createElement({
-                      tagName: 'div',
-                      attrs: {},
-                      children: [
-                        `${count}`,
-                      ]
-                    }),
-                  ]
-                }),
-              ]
-            }),
-          ]
-        }),
-      ]
-    })
+      ],
+    }),
+    ...todosMap(state.todos),
   ],
 });
 
-let count: number = 0;
-let vApp = createVApp(count);
-const $app = firstRender(vApp);
+const todosMap = (todos: Array<String>) => {
+  return todos.map((todo, index) => {
+    return createElement({
+      tagName: "p",
+      attrs: {
+        key: `${index}`,
+      },
+      children: [
+        `${todo}`
+      ]
+    });
+  })
+}
+
+let state: any = {
+  todoInput: "input todo",
+  todos: ["todo1", "todo2", "todo3"],
+}
+
+let vApp = view(state);
+const $app = firstRender(view(state));
 const $target = document.getElementById('app');
 let $rootEl = mount({ $node: $app, $target: $target });
 
-setInterval(() => {
-  count++;
-  if (count <= 5) {
-    console.log("count", count)
-    const vNewApp = createVApp(count)
+
+const setState = (actionState: setStateInterface) => {
+  switch(actionState.actionType) {
+    case 'todoInputTextChange':
+      state.todoInput = actionState.state
+      reRender()
+      break;
+    case 'addTodo':
+      state.todos.push(actionState.state)
+      reRender()
+      break;
+  }
+}
+
+const reRender = () => {
+  
+  const vNewApp = view(state)
     if ($rootEl !== undefined ) {
       const $newRootEl = diff(vApp, vNewApp, $rootEl);
-      console.log("$rootEl", $rootEl)
-      console.log("$newRootEl", $newRootEl)
       $rootEl = $newRootEl
     }
     vApp = vNewApp;
-  }
-}, 1500);
-
-/*
-const createVApp = (count: number) => createElement({
-  tagName: "div",
-  attrs: { id: 'app' },
-  children: [
-    createElement({
-      tagName: 'p',
-      attrs: {
-        test: "1",
-      },
-      children: [
-        `count: ${count}`,
-      ]
-    }),
-  ],
-});
-*/
+}

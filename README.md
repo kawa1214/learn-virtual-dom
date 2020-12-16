@@ -1,6 +1,6 @@
 **仮想DOM要素のオブジェクト**
 
-'''javascript
+```javascript
 const myButton = {
   tagName: 'button',
   attrs: {
@@ -9,11 +9,11 @@ const myButton = {
   },
   children: ['save'],
 };
-'''
+```
 
-'''html
+```html
 <button id="btn" class="save-btn">save</button>
-'''
+```
 
 **dom methods**
 

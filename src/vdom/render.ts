@@ -4,7 +4,12 @@ const renderElem = (vNode: elementAttribute) => {
   const $el = document.createElement(vNode.tagName);
 
   for (const [k, v] of Object.entries(vNode.attrs)) {
-    $el.setAttribute(k, v);
+    if (typeof v === 'function') {
+      const eventName = k.slice(2) /// oninput to input
+      $el.addEventListener(eventName, v as EventListener)
+    }else {
+      $el.setAttribute(k, v);
+    }
   }
 
   for (const child of vNode.children) {

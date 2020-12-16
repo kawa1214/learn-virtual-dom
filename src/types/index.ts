@@ -4,6 +4,12 @@ export interface elementAttribute {
   children: elementChildren,
 }
 
-export type elementAttrs = { [key: string]: string }
+export interface setStateInterface {
+  actionType: String,
+  state: String
+}
+
+export type elementAttrs = { [key: string ]: string | EventListener }
+
 
 export type elementChildren = Array<elementAttribute | string>
