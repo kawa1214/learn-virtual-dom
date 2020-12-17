@@ -1,19 +1,4 @@
-**仮想DOM要素のオブジェクト**
-
-```javascript
-const myButton = {
-  tagName: 'button',
-  attrs: {
-      id: 'btn',
-      class: 'save-btn'
-  },
-  children: ['save'],
-};
-```
-
-```html
-<button id="btn" class="save-btn">save</button>
-```
+https://kawa.dev/tech/learn-virtual-dom/
 
 **dom methods**
 
