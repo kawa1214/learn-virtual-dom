@@ -4,7 +4,7 @@ interface mountInterface {
 }
 export const mount = (props: mountInterface) => {
   if (props.$target !== null) {
-    props.$target.replaceWith(props.$node);
+    props.$target.replaceWith(props.$node)
     return props.$node;
   }
-};
+}

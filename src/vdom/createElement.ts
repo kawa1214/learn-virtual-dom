@@ -4,16 +4,5 @@ export const createElement = (props: elementAttribute) => {
     tagName: props.tagName,
     attrs: props.attrs,
     children: props.children,
-  };
-};
-
-/*
-export const createElement = (tagName: String, { attrs = {}, children = [] } = {}) => {
-  return {
-    tagName,
-    attrs,
-    children,
-  };
-};
- 
- */
+  }
+}

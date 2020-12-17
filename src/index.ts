@@ -1,9 +1,8 @@
-import { createElement } from './vdom/createElement';
-import { render, firstRender } from './vdom/render';
-import { mount } from './vdom/mount';
+import { createElement } from './vdom/createElement'
+import { firstRender } from './vdom/render'
+import { mount } from './vdom/mount'
 import { diff } from './vdom/diff'
-import { CreateApp } from './framework/index';
-import { elementAttribute, setStateInterface } from './types/index'
+import { setStateInterface } from './types/index'
 
 const view = (state: any) => createElement({
   tagName: "div",
@@ -42,7 +41,7 @@ const view = (state: any) => createElement({
     }),
     ...todosMap(state.todos),
   ],
-});
+})
 
 const todosMap = (todos: Array<String>) => {
   return todos.map((todo, index) => {
@@ -54,7 +53,7 @@ const todosMap = (todos: Array<String>) => {
       children: [
         `${todo}`
       ]
-    });
+    })
   })
 }
 
@@ -63,10 +62,10 @@ let state: any = {
   todos: ["todo1", "todo2", "todo3"],
 }
 
-let vApp = view(state);
-const $app = firstRender(view(state));
-const $target = document.getElementById('app');
-let $rootEl = mount({ $node: $app, $target: $target });
+let vApp = view(state)
+const $app = firstRender(view(state))
+const $target = document.getElementById('app')
+let $rootEl = mount({ $node: $app, $target: $target })
 
 
 const setState = (actionState: setStateInterface) => {
@@ -74,20 +73,19 @@ const setState = (actionState: setStateInterface) => {
     case 'todoInputTextChange':
       state.todoInput = actionState.state
       reRender()
-      break;
+      break
     case 'addTodo':
       state.todos.push(actionState.state)
       reRender()
-      break;
+      break
   }
 }
 
 const reRender = () => {
-  
   const vNewApp = view(state)
     if ($rootEl !== undefined ) {
-      const $newRootEl = diff(vApp, vNewApp, $rootEl);
+      const $newRootEl = diff(vApp, vNewApp, $rootEl)
       $rootEl = $newRootEl
     }
-    vApp = vNewApp;
+    vApp = vNewApp
 }

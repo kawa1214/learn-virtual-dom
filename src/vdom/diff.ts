@@ -4,44 +4,24 @@ import { createElement } from './createElement';
 
 const replaceChildren = (oldVTree: elementAttribute, newVTree: elementAttribute, $rootEl: Element,) => {
   $rootEl = replaceAttrs(oldVTree.attrs, newVTree.attrs, $rootEl);
-  /*
-  oldVTree.children.forEach((oldVChild, i) => {
+  newVTree.children.forEach((newVChild, i) => {
     if (oldVTree.children === undefined || newVTree.children === undefined) {
       return $rootEl
     }
-    const newVChild = newVTree.children[i]
-    if (typeof oldVChild === 'string' || typeof newVChild === 'string') {
-      if (oldVChild !== newVChild) {
-        const $newNode = render(newVTree);
-        $rootEl.replaceWith($newNode);
+    const oldVChild = oldVTree.children[i]
+    if (typeof newVChild === 'string' || typeof oldVChild === 'string') {
+      if (newVChild !== oldVChild) {
+        const $newNode = render(newVTree)
+        $rootEl.replaceWith($newNode)
       }
       return $rootEl;
     }
     if ($rootEl.children[i] === undefined) {
+      $rootEl.appendChild(render(newVChild))
       return $rootEl
     }
-    replaceChildren(oldVChild, newVChild, $rootEl.children[i])
+    replaceChildren(newVChild, oldVChild, $rootEl.children[i])
   })
-  */
- newVTree.children.forEach((newVChild, i) => {
-  if (oldVTree.children === undefined || newVTree.children === undefined) {
-    return $rootEl
-  }
-  const oldVChild = oldVTree.children[i]
-  if (typeof newVChild === 'string' || typeof oldVChild === 'string') {
-    if (newVChild !== oldVChild) {
-      const $newNode = render(newVTree);
-      $rootEl.replaceWith($newNode);
-    }
-    return $rootEl;
-  }
-  if ($rootEl.children[i] === undefined) {
-    $rootEl.appendChild(render(newVChild))
-    return $rootEl
-  }
-  replaceChildren(newVChild, oldVChild, $rootEl.children[i])
-})
- 
   return $rootEl
 }
 
@@ -50,20 +30,19 @@ const replaceAttrs = (oldAttrs: elementAttrs, newAttrs: elementAttrs, $rootEl: E
     if (typeof v === 'function') {
       $rootEl.addEventListener(k, v as EventListener)
     }else {
-      $rootEl.setAttribute(k, v);
+      $rootEl.setAttribute(k, v)
     }
   }
 
   for (const k in oldAttrs) {
     if (!(k in newAttrs)) {
-      $rootEl.removeAttribute(k);
+      $rootEl.removeAttribute(k)
     }
   }
   return $rootEl
 }
 
 export const diff = (oldVTree: elementAttribute , newVTree: elementAttribute, $rootEl: Element) => {
-
   $rootEl = replaceChildren(oldVTree, newVTree, $rootEl)
   return $rootEl
-};
+}
