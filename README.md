@@ -1,4 +1,4 @@
-https://kawa.dev/tech/learn-virtual-dom/
+https://kawa.dev/blogs/learn-virtual-dom
 
 **dom methods**
 
